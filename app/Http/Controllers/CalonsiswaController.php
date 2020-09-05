@@ -10,7 +10,8 @@ class CalonsiswaController extends Controller
 {
     public function index()
     {
-        return "Tabel Data Calon Siswa";
+        $csb = Calonsiswa::all();
+        return view('indexcalonsiswa', ['calonsiswa' => $csb]);
     }
     public function create()
     {
@@ -38,6 +39,20 @@ class CalonsiswaController extends Controller
         $calonsiswa->nohp = $validateData['nohp'];
         $calonsiswa->save();
 
-        return "Data Berhasil masuk ke database";
+        $request->session()->flash('pesan', "Penambahan data baru berhasil ,Data {$validateData['nama']} ");
+        return redirect()->route('calonsiswa.index');
+    }
+
+    public function show($calonsiswa)
+    {
+        // dd($calonsiswa);
+        $result = Calonsiswa::find($calonsiswa);
+        return view('detail_calon', ['calonsiswa' => $result]);
+    }
+
+    public function delete(Calonsiswa $calonsiswa)
+    {
+        $calonsiswa->delete();
+        return redirect()->route('calonsiswa.index')->with('pesanhapus', "Hapus data $calonsiswa->nama berhasil");
     }
 }

@@ -15,6 +15,13 @@
         <div class="row">
             <h2>Tabel data calon siswa</h2>
         </div>
+        @if(session()->has('pesan'))
+            <div class="alert alert-success">{{ session()->get('pesan') }}</div>
+        @endif
+
+        @if(session()->has('pesanhapus'))
+            <div class="alert alert-danger">{{ session()->get('pesanhapus') }}</div>
+        @endif
         <table class="table">
             <tr>
                 <td>NO</td>
@@ -27,18 +34,20 @@
             </tr>
             
                 @forelse ($calonsiswa as $itemSiswa)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $itemSiswa->noppdb }}</td>
-            <td>{{ $itemSiswa->nama }}</td>
-            <td>{{ $itemSiswa->asal_sekolah }}</td>
-            <td>{{ $itemSiswa->pilihan1 }}</td>
-            <td>{{ $itemSiswa->pilihan2 }}</td>
-            <td> <a href="#">EDIT</a></td>    
-        </tr>
-                @empty 
-                    
-                @endforelse
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $itemSiswa->noppdb }}</td>
+                <td>{{ $itemSiswa->nama }}</td>
+                <td>{{ $itemSiswa->asal_sekolah }}</td>
+                <td>{{ $itemSiswa->pilihan1 }}</td>
+                <td>{{ $itemSiswa->pilihan2 }}</td>
+                <td> <a href="{{ url("calonsiswa/$itemSiswa->id") }}">detail</a> 
+                  <a href="{{ url("hapussiswa/$itemSiswa->id") }}">hapus</a></td>
+            </tr>
+
+          @empty
+              <td colspan="7">Tidak Ada Data</td>
+          @endforelse
                 
             
         </table>
