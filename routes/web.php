@@ -28,7 +28,10 @@ Route::get('/calonsiswa/create', 'CalonsiswaController@create')->name('calonsisw
 Route::post('/calonsiswa', 'CalonsiswaController@store')->name('calonsiswa.store');
 
 
-
+//tampil edit data
+Route::get('/calonsiswa/{calonsiswa}/edit', "CalonsiswaController@viewform");
+//edit data
+Route::patch('/calonsiswa/{calonsiswa}', "CalonsiswaController@prosesEdit");
 //tampil 1 data
 Route::get('/calonsiswa/{calonsiswa}', 'CalonsiswaController@show');
 //hapus siswa

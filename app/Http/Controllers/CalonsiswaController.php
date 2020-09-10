@@ -43,6 +43,28 @@ class CalonsiswaController extends Controller
         return redirect()->route('calonsiswa.index');
     }
 
+    public function prosesEdit(Request $request, Calonsiswa $calonsiswa)
+    {
+        $validateData = $request->validate([
+            'noppdb' => 'required',
+            'nama' => 'required',
+            'asal_sekolah' => 'required',
+            'pilihan1' => 'required',
+            'pilihan2' => 'required',
+            'alamat' => 'required',
+            'nohp' => ''
+        ]);
+        // dump($validateData);
+        Calonsiswa::where('id', $calonsiswa->id)->update($validateData);
+        return redirect()->route('calonsiswa.index')->with('pesan', "Data Berhasil di Ubah {$validateData['nama']}");
+    }
+
+    public function viewform(Calonsiswa $calonsiswa)
+    {
+        // dd($calonsiswa);
+        return view('test', ['calonsiswa' => $calonsiswa]);
+    }
+
     public function show($calonsiswa)
     {
         // dd($calonsiswa);
